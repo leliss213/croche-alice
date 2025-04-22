@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <meta charset="UTF-8"> -->
+    <meta charset="windows-1252">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Crochê da Alice</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>Gerenciador de Crochê</h1>
+
+    <button onclick="alternarTema()" id="botao-tema" style="float:right;">Tema Escuro</button>
+    
+    <nav>
+      <button onclick="showTab('projetos')">Projetos</button>
+      <button onclick="showTab('estoque')">Estoque</button>
+      <button onclick="showTab('perfil')">Perfil</button>
+    </nav>
+  
+    <div id="projetos" class="tab-content active">
+      <div class="input-group">
+        <input type="text" id="projetoNome" placeholder="Nome do projeto">
+        <button onclick="adicionarProjeto()">Adicionar</button>
+      </div>
+      <div id="listaProjetos"></div>
+    </div>
+  
+    <div id="estoque" class="tab-content">
+      <div class="input-group">
+        <input type="text" id="linhaCor" placeholder="Cor da linha">
+        <input type="number" id="linhaQtd" placeholder="Quantidade">
+        <button onclick="adicionarLinha()">Adicionar</button>
+      </div>
+      <div id="listaEstoque"></div>
+    </div>
+  
+    <div id="perfil" class="tab-content">
+      <div class="card">
+        <strong>Resumo</strong>
+        <p id="resumoProjetos"></p>
+        <p id="resumoTipos"></p>
+        <p id="resumoTotal"></p>
+      </div>
+    </div>
+  
+    <script src="app.js"></script>
+    
+</body>
+
+</html>

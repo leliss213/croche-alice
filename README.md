@@ -1,2 +1,2 @@
 # croche-alice
-gerenciar os projetos de croche e o estoque
+gerenciar os projetos e o estoque de croche

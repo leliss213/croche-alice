@@ -1,0 +1,181 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8f8f8;
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+    color: #333;
+  }
+  
+  h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  nav {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  nav button {
+    margin: 0 5px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  nav button:hover {
+    background-color: #45a049;
+  }
+  
+  .tab-content {
+    display: none;
+    margin-top: 20px;
+  }
+  
+  .active {
+    display: block;
+  }
+  
+  .card {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .input-group input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .input-group button {
+    background-color: #2196F3;
+    border: none;
+    padding: 10px 15px;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .input-group button:hover {
+    background-color: #1976D2;
+  }
+  
+  .card button {
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 6px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .card button:nth-child(3) {
+    background-color: #FF9800;
+    color: white;
+  }
+  
+  .card button:nth-child(3):hover {
+    background-color: #F57C00;
+  }
+  
+  .card button:nth-child(4) {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .card button:nth-child(4):hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Tema escuro */
+body.dark {
+    background-color: #121212;
+    color: #eee;
+  }
+  
+  body.dark .card {
+    background-color: #1e1e1e;
+    border-color: #333;
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
+  }
+  
+  body.dark nav button {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  body.dark nav button:hover {
+    background-color: #444;
+  }
+  
+  body.dark .input-group input {
+    background-color: #222;
+    color: #eee;
+    border-color: #444;
+  }
+  
+  body.dark .input-group button {
+    background-color: #1e88e5;
+  }
+  
+  body.dark .card button:nth-child(3) {
+    background-color: #fb8c00;
+  }
+  
+  body.dark .card button:nth-child(4) {
+    background-color: #e53935;
+  }
+  
+  #botao-tema {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s, transform 0.2s;
+    z-index: 1000;
+  }
+  
+  #botao-tema:hover {
+    background-color: #388e3c;
+    transform: scale(1.05);
+  }
+  
+  body.dark #botao-tema {
+    background-color: #222;
+    color: #ffc107;
+  }
+  
+  body.dark #botao-tema:hover {
+    background-color: #333;
+  }
+    
