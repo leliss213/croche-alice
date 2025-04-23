@@ -1,6 +1,13 @@
 let projetos = JSON.parse(localStorage.getItem('projetos')) || [];
 let estoque = JSON.parse(localStorage.getItem('estoque')) || [];
 
+const yarnInventory = [
+  { id: 'yarn1', name: 'Linha Anne' },
+  { id: 'yarn4', name: 'Linha Amigurumi Soft' },
+  { id: 'yarn2', name: 'Linha Charme' },
+  { id: 'yarn3', name: 'Linha Clea' }
+];
+
 
 function showTab(tab) {
   document.querySelectorAll('.tab-content').forEach(div => div.classList.remove('active'));
@@ -11,15 +18,23 @@ function showTab(tab) {
 function adicionarProjeto() {
     const nome = document.getElementById('projetoNome').value.trim();
     const valor = parseFloat(document.getElementById('projetoValor').value);
-    // const linhasSelecionadas = Array.from(document.getElementById('selecaoLinhas').selectedOptions).map(option => ({
-    //   cor: option.text,
-    //   quantidade: parseInt(option.dataset.quantidade)
-    // }));
+    const linhasSelecionadas = Array.from(document.querySelectorAll('.yarn-row')).map(row => {
+        const cor = row.querySelector('.selecaoLinhas').value;
+        const quantidade = parseInt(row.querySelector('.linhaQtd').value);
+          return { cor, quantidade };
+      });
+    
+      
     
     if (nome && !isNaN(valor)) {
-      projetos.push({ nome, status: 'Em andamento', valor});
+      projetos.push({ nome, status: 'Em andamento', valor, yarns: selectedYarns});
       document.getElementById('projetoNome').value = '';
       document.getElementById('projetoValor').value = '';
+      selectedYarns = [];
+      document.querySelectorAll('.yarn-row').forEach(row => row.remove());
+      const firstYarnRow = document.querySelector('.yarn-row');
+      if (firstYarnRow) firstYarnRow.remove();
+      adicionarLinhaAoProjeto();
       renderizarProjetos();
       salvarDados();
     }
@@ -65,11 +80,20 @@ function renderizarProjetos() {
       const div = document.createElement('div');
       div.className = 'card';
       div.innerHTML = `
-        <strong>${proj.nome}</strong><br>
-        Status: ${proj.status}<br>
-        Valor: R$ ${proj.valor.toFixed(2).replace('.', ',')}<br>
+        <strong>${proj.nome}</strong>
+        <p>Status: ${proj.status}</p>
+        <p>Valor: R$ ${proj.valor.toFixed(2).replace('.', ',')}</p>
+        <div>
+            <strong>Fios:</strong>
+            <ul>
+            ${proj.yarns.map(yarn => `<li>${yarnInventory.find(y => y.id === yarn.yarnId)?.name} - Qtd: ${yarn.quantity}</li>`).join('')}
+            </ul>
+
+        </div>
         <button onclick="abrirModal('projeto', ${index})">Editar</button>
         <button onclick="excluirProjeto(${index})">Excluir</button>
+
+        
       `;
       lista.appendChild(div);
     });
@@ -115,7 +139,7 @@ function atualizarResumo() {
 }
 
 function abrirModal(tipo, index) {
-    modalContexto = { tipo, index };
+    modalContexto = { tipo, index, item: { ...projetos[index] } };
     const item = tipo === 'projeto' ? projetos[index] : estoque[index];
     document.getElementById('modalTitulo').innerText = tipo === 'projeto' ? 'Editar Projeto' : 'Editar Estoque';
     document.getElementById('modalCampo1').value = tipo === 'projeto' ? item.nome : item.cor;
@@ -135,7 +159,14 @@ function salvarEdicao() {
     if (!campo1 || isNaN(campo3)) return;
 
     if (modalContexto.tipo === 'projeto') {
-      projetos[modalContexto.index] = { ...projetos[modalContexto.index], nome: campo1, valor: campo3 };
+      const projeto = projetos[modalContexto.index];
+      const lines = []
+      
+      const updatedYarns = selectedYarns.length > 0 ? selectedYarns : modalContexto.item.yarns;
+      selectedYarns = [];
+      
+      projetos[modalContexto.index] = { ...projeto, nome: campo1, valor: campo3, yarns: updatedYarns };
+
       renderizarProjetos();
     } else {
       if (isNaN(campo2)) return;
@@ -147,21 +178,69 @@ function salvarEdicao() {
 }
 
 function atualizarSelecaoLinhas() {
-    const container = document.getElementById("selecaoLinhas");
-    container.innerHTML = ""; // Limpar conteúdo anterior
-    estoque.forEach((linha, index) => {
-      const option = document.createElement("option");
-      option.value = linha.cor;
-      option.text = linha.cor;
-      option.dataset.quantidade = linha.quantidade;
-      container.appendChild(option);
-    });
+  const selecaoLinhasElements = document.querySelectorAll(".selecaoLinhas");
+  selecaoLinhasElements.forEach((container) => {
+      const selectedValue = container.value;
+      container.innerHTML = "";
+      estoque.forEach((linha, index) => {
+        const option = document.createElement("option");
+        option.value = linha.cor;
+        option.text = linha.cor;
+        
+        option.dataset.quantidade = linha.quantidade;
+        if (linha.cor === selectedValue){
+          option.selected = true;
+        }
+        container.appendChild(option);
+      });
+  });
+}
+
+function adicionarLinhaAoProjeto() {
+  const yarnContainer = document.getElementById('yarnContainer');
+  yarnContainer.innerHTML += ` <div class="yarn-row"><select class="selecaoLinhas"></select><input type="number" class="linhaQtd" min="1" value="1"></div>`;
+  atualizarSelecaoLinhas();
   }
 
 function salvarDados() {
   localStorage.setItem('projetos', JSON.stringify(projetos));
   localStorage.setItem('estoque', JSON.stringify(estoque));
 }
+
+function populateYarnSelection() {
+  const yarnSelect = document.getElementById('yarnSelect');
+  yarnInventory.forEach(yarn => {
+    const option = document.createElement('option');
+    option.value = yarn.id;
+    option.text = yarn.name; 
+    yarnSelect.appendChild(option);
+  });
+}
+
+function populateProjectYarnLinesSelection() {
+  const yarnSelect = document.getElementById('projetoLinhas');
+  yarnInventory.forEach(yarn => {
+    const option = document.createElement('option');
+    option.value = yarn.id;
+    option.text = yarn.name;
+    yarnSelect.appendChild(option);
+  });
+}
+let selectedYarns = [];
+
+function addYarn() {
+  const yarnSelect = document.getElementById('yarnSelect');
+  const yarnQuantity = document.getElementById('yarnQuantity');
+
+  const yarnId = yarnSelect.value;
+  const quantity = parseInt(yarnQuantity.value);
+
+  selectedYarns.push({ yarnId, quantity });
+  yarnQuantity.value = '';
+  
+}
+
+
 
 function alternarTema() {
     const corpo = document.body;
@@ -183,6 +262,10 @@ window.onload = () => {
   }
 };  
 
+window.addEventListener('load', populateYarnSelection);
+window.addEventListener('load', populateProjectYarnLinesSelection);
 renderizarProjetos();
 renderizarEstoque();
 atualizarResumo();
+document.getElementById('addYarnBtn').addEventListener('click', addYarn);
+adicionarLinhaAoProjeto();

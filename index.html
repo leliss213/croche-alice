@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- <meta charset="UTF-8"> -->
     <meta charset="windows-1252">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciador de CrochÍ da Alice</title>
+    <title>Gerenciador de Crochù da Alice</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <h1>Gerenciador de CrochÍ</h1>
+    <h1>Gerenciador de Croche</h1>
 
     <button onclick="alternarTema()" id="botao-tema" style="float:right;">Tema Escuro</button>
     
@@ -23,11 +22,21 @@
     <div id="projetos" class="tab-content active">
         <div class="input-group">
           <input type="text" id="projetoNome" placeholder="Nome do projeto">
-          <input type="number" step="0.01" id="projetoValor" placeholder="Valor (R$)">
-          
+          <input type="number" step="0.01"  id="projetoValor" placeholder="Valor (R$)">          
           <button onclick="adicionarProjeto()">Adicionar</button>
         </div>
+        
+        <div class="input-group">
+            <label for="projetoLinhas">Linhas Utilizadas:</label>
+            <select id="projetoLinhas" multiple>
+                <!-- OpÁıes ser„o adicionadas dinamicamente pelo JavaScript -->
+            </select>
+            <input type="number" id="projetoLinhaQuantidade" placeholder="Quantidade">
+            <button onclick="adicionarLinhaAoProjeto()">Adicionar Linha</button>
+            <div id="linhasDoProjeto"></div>
+        </div>
         <div id="listaProjetos"></div>
+        
       </div>
   
     <div id="estoque" class="tab-content">
