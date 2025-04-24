@@ -1,77 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="windows-1252">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciador de Croch da Alice</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="windows-1252">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciador de Croch da Alice</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <h1>Gerenciador de Croche</h1>
+  <h1>Gerenciador de Croche</h1>
 
-    <button onclick="alternarTema()" id="botao-tema" style="float:right;">Tema Escuro</button>
-    
-    <nav>
-      <button onclick="showTab('projetos')">Projetos</button>
-      <button onclick="showTab('estoque')">Estoque</button>
-      <button onclick="showTab('perfil')">Perfil</button>
-    </nav>
-  
-    <div id="projetos" class="tab-content active">
-        <div class="input-group">
-          <input type="text" id="projetoNome" placeholder="Nome do projeto">
-          <input type="number" step="0.01"  id="projetoValor" placeholder="Valor (R$)">          
-          <button onclick="adicionarProjeto()">Adicionar</button>
-        </div>
-        
-        <div class="input-group">
-            <label for="projetoLinhas">Linhas Utilizadas:</label>
-            <select id="projetoLinhas" multiple>
-                <!-- Opções serão adicionadas dinamicamente pelo JavaScript -->
-            </select>
-            <input type="number" id="projetoLinhaQuantidade" placeholder="Quantidade">
-            <button onclick="adicionarLinhaAoProjeto()">Adicionar Linha</button>
-            <div id="linhasDoProjeto"></div>
-        </div>
-        <div id="listaProjetos"></div>
-        
-      </div>
-  
-    <div id="estoque" class="tab-content">
-        <div class="input-group">
-            <input type="text" id="linhaCor" placeholder="Cor da linha">
-            <input type="number" id="linhaQtd" placeholder="Quantidade">
-            <input type="number" step="0.01" id="linhaValor" placeholder="Valor (R$)">
-            <button onclick="adicionarLinha()">Adicionar</button>
-        </div>
-      <div id="listaEstoque"></div>
-    </div>
-  
-    <div id="perfil" class="tab-content">
-        <div class="card">
-          <strong>Resumo</strong>
-          <p id="resumoProjetos"></p>
-          <p id="resumoTipos"></p>
-          <p id="resumoTotal"></p>
-          <p id="resumoValores"></p>
-        </div>
-    </div>
-  
-    <div id="modal">
-        <div class="card">
-          <h3 id="modalTitulo"></h3>
-          <input type="text" id="modalCampo1">
-          <input type="number" id="modalCampo2">
-          <input type="number" step="0.01" id="modalCampo3">
-          <button onclick="salvarEdicao()">Salvar</button>
-          <button onclick="fecharModal()">Cancelar</button>
-        </div>
-      </div>
+  <button onclick="alternarTema()" id="botao-tema" style="float:right;">Tema Escuro</button>
 
-    <script src="app.js"></script>
+  <nav>
+    <button onclick="showTab('projetos')">Projetos</button>
+    <button onclick="showTab('estoque')">Estoque</button>
+    <button onclick="showTab('perfil')">Perfil</button>
+  </nav>
+
+  <div id="projetos" class="tab-content active">
+    <div class="input-group">
+      <input type="text" id="projetoNome" placeholder="Nome do projeto">
+      <input type="number" step="0.01" id="projetoValor" placeholder="Valor (R$)">
+      <button onclick="adicionarProjeto()">Adicionar</button>
+    </div>
+
+    <div class="dropdown">
+      <button onclick="toggleDropdown()" class="dropbtn">Selecionar Linhas</button>
+      <div id="dropdownCheckboxes" class="dropdown-content"></div>
+    </div>
     
+    <div id="listaProjetos"></div>
+
+  </div>
+
+  <div id="estoque" class="tab-content">
+    <div class="input-group">
+      <input type="text" id="linhaCor" placeholder="Cor da linha">
+      <input type="number" id="linhaQtd" placeholder="Quantidade">
+      <input type="number" step="0.01" id="linhaValor" placeholder="Valor (R$)">
+      <button onclick="adicionarLinha()">Adicionar</button>
+    </div>
+    <div id="listaEstoque"></div>
+  </div>
+
+  <div id="perfil" class="tab-content">
+    <div class="card">
+      <strong>Resumo</strong>
+      <p id="resumoProjetos"></p>
+      <p id="resumoTipos"></p>
+      <p id="resumoTotal"></p>
+      <p id="resumoValores"></p>
+    </div>
+  </div>
+
+  <div id="modal">
+    <div class="card">
+      <h3 id="modalTitulo"></h3>
+      <input type="text" id="modalCampo1">
+      <input type="number" id="modalCampo2">
+      <input type="number" step="0.01" id="modalCampo3">
+      <button onclick="salvarEdicao()">Salvar</button>
+      <button onclick="fecharModal()">Cancelar</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+
 </body>
 
 </html>
