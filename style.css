@@ -200,6 +200,11 @@ body.dark #botao-tema:hover {
   margin-bottom: 10px;
 }
 
+.dropdown-content label {
+  display: block;
+  margin-bottom: 5px;
+}
+
 .dropdown {
   position: relative;
   display: inline-block;
@@ -207,29 +212,51 @@ body.dark #botao-tema:hover {
 }
 
 .dropbtn {
-  padding: 10px;
-  background-color: #eee;
-  border: 1px solid #ccc;
+  background-color: #3498db;
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
   cursor: pointer;
+  border-radius: 4px;
 }
 
 .dropdown-content {
   display: none;
-  position: absolute;
-  background-color: #fff;
-  min-width: 200px;
-  max-height: 200px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  z-index: 1;
   padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.dropdown-content label {
+
+.dropdown.active .dropdown-content {
   display: block;
-  margin-bottom: 5px;
 }
 
-.dropdown.show .dropdown-content {
-  display: block;
+
+.linhas-usadas table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 5px;
+}
+
+.linhas-usadas th,
+.linhas-usadas td {
+  border: 1px solid #ccc;
+  padding: 6px 8px;
+  text-align: left;
+  font-size: 0.9em;
+}
+
+.linhas-usadas th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.linhas-usadas tr:nth-child(even) {
+  background-color: #fafafa;
 }

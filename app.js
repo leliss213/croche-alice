@@ -7,29 +7,50 @@ function showTab(tab) {
   atualizarResumo();
 }
 
+
 function adicionarProjeto() {
   const nome = document.getElementById('projetoNome').value.trim();
   const valor = parseFloat(document.getElementById('projetoValor').value);
-  const linhasSelecionadas = Array.from(document.querySelectorAll('.yarn-row')).map(row => {
-    const cor = row.querySelector('.selecaoLinhas').value;
-    const quantidade = parseInt(row.querySelector('.linhaQtd').value);
-    return { cor, quantidade };
+
+  if (!nome || isNaN(valor)) return;
+
+  // 1. Coletar as linhas selecionadas do dropdown
+  const checkboxes = document.querySelectorAll('#dropdownCheckboxes input[type="checkbox"]:checked');
+  const linhasUsadas = [];
+
+  checkboxes.forEach(checkbox => {
+    const id = checkbox.value;
+    const qtdInput = document.getElementById(`qtd_${id}`);
+    const quantidade = qtdInput.value || 0;
+    if (quantidade > 0) {
+      linhasUsadas.push({ id, quantidade });
+    }
+    
   });
 
+  // 2. Criar o projeto com as linhas usadas
+  const novoProjeto = {
+    nome,
+    status: 'Em andamento',
+    valor,
+    linhasUsadas 
+  };
 
-  if (nome && !isNaN(valor)) {
-    projetos.push({ nome, status: 'Em andamento', valor, yarns: selectedYarns });
-    document.getElementById('projetoNome').value = '';
-    document.getElementById('projetoValor').value = '';
-    selectedYarns = [];
-    document.querySelectorAll('.yarn-row').forEach(row => row.remove());
-    const firstYarnRow = document.querySelector('.yarn-row');
-    if (firstYarnRow) firstYarnRow.remove();
-    adicionarLinhaAoProjeto();
-    renderizarProjetos();
-    salvarDados();
-  }
+  projetos.push(novoProjeto);
+
+  // 3. Limpar inputs
+  document.getElementById('projetoNome').value = '';
+  document.getElementById('projetoValor').value = '';
+  document.querySelectorAll('#dropdownCheckboxes input[type="checkbox"]').forEach(cb => cb.checked = false);
+  document.querySelectorAll('#dropdownCheckboxes input[type="number"]').forEach(input => input.value = '');
+
+  // 4. Atualizar UI
+  renderizarProjetos();
+  salvarDados();
+
+  console.log(novoProjeto)
 }
+
 
 function excluirProjeto(index) {
   if (confirm('Deseja excluir este projeto?')) {
@@ -38,6 +59,7 @@ function excluirProjeto(index) {
     renderizarProjetos();
   }
 }
+
 
 function adicionarLinha() {
   const cor = document.getElementById('linhaCor').value.trim();
@@ -66,31 +88,101 @@ function excluirLinha(index) {
   }
 }
 
+
+// function renderizarProjetos() {
+//   const lista = document.getElementById('listaProjetos');
+//   lista.innerHTML = '';
+
+//   projetos.forEach((proj, index) => {
+//     const div = document.createElement('div');
+//     div.className = 'card';
+
+//     // Texto base do projeto
+//     let html = `
+//       <strong>${proj.nome}</strong><br>
+//       Status: ${proj.status}<br>
+//       Valor: R$ ${proj.valor.toFixed(2).replace('.', ',')}<br>
+//     `;
+
+//     // Mostrar linhas usadas (se houver)
+//     if (proj.linhasUsadas && proj.linhasUsadas.length > 0) {
+//       html += `<em>Linhas usadas:</em><ul>`;
+//       proj.linhasUsadas.forEach(uso => {
+//         // Encontrar no estoque pelo ID da linha usada
+//         const linha = estoque.find(item => item.id === uso.id);
+//         const nomeCor = linha ? linha.cor : 'Linha removida';
+//         html += `<li>${nomeCor} — ${uso.quantidade} grama(s)</li>`;
+//       });
+//       html += `</ul>`;
+//     }
+
+//     // Botões
+//     html += `
+//       <button onclick="abrirModal('projeto', ${index})">Editar</button>
+//       <button onclick="excluirProjeto(${index})">Excluir</button>
+//     `;
+
+//     div.innerHTML = html;
+//     lista.appendChild(div);
+//   });
+// }
+
+
 function renderizarProjetos() {
   const lista = document.getElementById('listaProjetos');
   lista.innerHTML = '';
+
   projetos.forEach((proj, index) => {
     const div = document.createElement('div');
     div.className = 'card';
-    div.innerHTML = `
-        <strong>${proj.nome}</strong>
-        <p>Status: ${proj.status}</p>
-        <p>Valor: R$ ${proj.valor.toFixed(2).replace('.', ',')}</p>
-        <div>
-            <strong>Fios:</strong>
-            <ul>
-            ${proj.yarns.map(yarn => `<li>${yarnInventory.find(y => y.id === yarn.yarnId)?.name} - Qtd: ${yarn.quantity}</li>`).join('')}
-            </ul>
 
-        </div>
-        <button onclick="abrirModal('projeto', ${index})">Editar</button>
-        <button onclick="excluirProjeto(${index})">Excluir</button>
+    let html = `
+      <strong>${proj.nome}</strong><br>
+      <span>Status:</span> ${proj.status}<br>
+      <span>Valor:</span> R$ ${proj.valor.toFixed(2).replace('.', ',')}<br><br>
+    `;
 
-        
+    if (proj.linhasUsadas && proj.linhasUsadas.length > 0) {
+      html += `
+        <div class="linhas-usadas">
+          <strong>Linhas usadas:</strong>
+          <table>
+            <thead>
+              <tr>
+                <th>Cor</th>
+                <th>Quantidade</th>
+              </tr>
+            </thead>
+            <tbody>
       `;
+      proj.linhasUsadas.forEach(uso => {
+        const linha = estoque.find(item => item.id === uso.id);
+        const nomeCor = linha ? linha.cor : '<em style="color:red;">Removida</em>';
+        html += `
+          <tr>
+            <td>${nomeCor}</td>
+            <td>${uso.quantidade} g</td>
+          </tr>
+        `;
+      });
+      html += `
+            </tbody>
+          </table>
+        </div><br>
+      `;
+    }
+
+    html += `
+      <button onclick="abrirModal('projeto', ${index})">Editar</button>
+      <button onclick="excluirProjeto(${index})">Excluir</button>
+    `;
+
+    div.innerHTML = html;
     lista.appendChild(div);
   });
 }
+
+
 
 function renderizarEstoque() {
   const lista = document.getElementById('listaEstoque');
@@ -109,6 +201,7 @@ function renderizarEstoque() {
     lista.appendChild(div);
   });
 }
+
 
 function atualizarResumo() {
   const totalProjetos = projetos.length;
@@ -131,6 +224,7 @@ function atualizarResumo() {
   resumoDiv.querySelector('.card').appendChild(extraResumo);
 }
 
+
 function abrirModal(tipo, index) {
   modalContexto = { tipo, index, item: { ...projetos[index] } };
   const item = tipo === 'projeto' ? projetos[index] : estoque[index];
@@ -141,9 +235,11 @@ function abrirModal(tipo, index) {
   document.getElementById('modal').style.display = 'flex';
 }
 
+
 function fecharModal() {
   document.getElementById('modal').style.display = 'none';
 }
+
 
 function salvarEdicao() {
   const campo1 = document.getElementById('modalCampo1').value.trim();
@@ -153,12 +249,12 @@ function salvarEdicao() {
 
   if (modalContexto.tipo === 'projeto') {
     const projeto = projetos[modalContexto.index];
-    const lines = []
+    //const lines = []
 
-    const updatedYarns = selectedYarns.length > 0 ? selectedYarns : modalContexto.item.yarns;
-    selectedYarns = [];
+    //const updatedYarns = selectedYarns.length > 0 ? selectedYarns : modalContexto.item.yarns;
+    //selectedYarns = [];
 
-    projetos[modalContexto.index] = { ...projeto, nome: campo1, valor: campo3, yarns: updatedYarns };
+    projetos[modalContexto.index] = { ...projeto, nome: campo1, valor: campo3 };
 
     renderizarProjetos();
   } else {
@@ -169,6 +265,7 @@ function salvarEdicao() {
   fecharModal();
   atualizarResumo();
 }
+
 
 function atualizarSelecaoLinhas() {
   const selecaoLinhasElements = document.querySelectorAll(".selecaoLinhas");
@@ -189,35 +286,48 @@ function atualizarSelecaoLinhas() {
   });
 }
 
-function adicionarLinhaAoProjeto() {
-  const yarnContainer = document.getElementById('yarnContainer');
-  yarnContainer.innerHTML += ` <div class="yarn-row"><select class="selecaoLinhas"></select><input type="number" class="linhaQtd" min="1" value="1"></div>`;
-  atualizarSelecaoLinhas();
-}
 
 function salvarDados() {
   localStorage.setItem('projetos', JSON.stringify(projetos));
   localStorage.setItem('estoque', JSON.stringify(estoque));
 }
 
+
 function toggleDropdown() {
-  const dropdown = document.querySelector('.dropdown');
-  dropdown.classList.toggle('show');
+  const dropdown = document.querySelector(".dropdown");
+  dropdown.classList.toggle("active");
 }
 
+
+// function atualizarDropdownCheckboxes() {
+//   const container = document.getElementById('dropdownCheckboxes');
+//   container.innerHTML = ''; // limpa antes
+
+//   estoque.forEach((linha, index) => {
+//     const label = document.createElement('label');
+//     label.innerHTML = `
+//       <input type="checkbox" value="${linha.cor}" data-id="${index}">
+//       ${linha.cor} (Qtd: ${linha.quantidade})
+//     `;
+//     container.appendChild(label);
+//   });
+// }
 function atualizarDropdownCheckboxes() {
   const container = document.getElementById('dropdownCheckboxes');
-  container.innerHTML = ''; // limpa antes
+  container.innerHTML = '';
 
-  estoque.forEach((linha, index) => {
-    const label = document.createElement('label');
-    label.innerHTML = `
-      <input type="checkbox" value="${linha.cor}" data-id="${index}">
-      ${linha.cor} (Qtd: ${linha.quantidade})
+  estoque.forEach(item => {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = `
+      <label>
+        <input type="checkbox" value="${item.id}"> ${item.cor}
+      </label>
+      <input type="number" id="qtd_${item.id}" placeholder="Qtd" min="1" style="width: 60px; margin-left: 10px;"><br>
     `;
-    container.appendChild(label);
+    container.appendChild(wrapper);
   });
 }
+
 
 function gerarUUID() {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -226,6 +336,7 @@ function gerarUUID() {
     return v.toString(16);
   });
 }
+
 
 function alternarTema() {
   const corpo = document.body;
@@ -237,6 +348,7 @@ function alternarTema() {
   botao.innerHTML = usandoDark ? '&#9728;' : '&#9790;';
 }
 
+
 window.onload = () => {
   const botao = document.getElementById('botao-tema');
   if (localStorage.getItem('temaEscuro') === 'sim') {
@@ -247,10 +359,8 @@ window.onload = () => {
   }
 };
 
-window.addEventListener('load', populateYarnSelection);
-window.addEventListener('load', populateProjectYarnLinesSelection);
+
 renderizarProjetos();
 renderizarEstoque();
 atualizarResumo();
-document.getElementById('addYarnBtn').addEventListener('click', addYarn);
-adicionarLinhaAoProjeto();
+atualizarDropdownCheckboxes();

@@ -4,7 +4,7 @@
 <head>
   <meta charset="windows-1252">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerenciador de Croch da Alice</title>
+  <title>Gerenciador de Crochê da Alice</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -21,9 +21,10 @@
   </nav>
 
   <div id="projetos" class="tab-content active">
+
     <div class="input-group">
       <input type="text" id="projetoNome" placeholder="Nome do projeto">
-      <input type="number" step="0.01" id="projetoValor" placeholder="Valor (R$)">
+      <input type="number" step="1.00" id="projetoValor" placeholder="Valor (R$)">
       <button onclick="adicionarProjeto()">Adicionar</button>
     </div>
 
@@ -37,16 +38,20 @@
   </div>
 
   <div id="estoque" class="tab-content">
+
     <div class="input-group">
       <input type="text" id="linhaCor" placeholder="Cor da linha">
       <input type="number" id="linhaQtd" placeholder="Quantidade">
-      <input type="number" step="0.01" id="linhaValor" placeholder="Valor (R$)">
+      <input type="number" step="1.00" id="linhaValor" placeholder="Valor (R$)">
       <button onclick="adicionarLinha()">Adicionar</button>
     </div>
+
     <div id="listaEstoque"></div>
+
   </div>
 
   <div id="perfil" class="tab-content">
+
     <div class="card">
       <strong>Resumo</strong>
       <p id="resumoProjetos"></p>
@@ -54,9 +59,11 @@
       <p id="resumoTotal"></p>
       <p id="resumoValores"></p>
     </div>
+
   </div>
 
   <div id="modal">
+
     <div class="card">
       <h3 id="modalTitulo"></h3>
       <input type="text" id="modalCampo1">
@@ -65,6 +72,7 @@
       <button onclick="salvarEdicao()">Salvar</button>
       <button onclick="fecharModal()">Cancelar</button>
     </div>
+
   </div>
 
   <script src="app.js"></script>
