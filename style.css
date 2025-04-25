@@ -1,10 +1,45 @@
+:root {
+  /* Cores gerais */
+  --cor-fundo: #f8f8f8;
+  --cor-texto: #333;
+  --cor-card: #ffffff;
+  --cor-borda: #ddd;
+  --cor-sombra: rgba(0, 0, 0, 0.05);
+
+  /* Cores dos botões */
+  --cor-primaria: #4CAF50;
+  --cor-primaria-hover: #45a049;
+  --cor-secundaria: #2196F3;
+  --cor-secundaria-hover: #1976D2;
+  --cor-dropbtn: #3498db;
+  --cor-tema-hover: #388e3c;
+
+  /* Cores da tabela */
+  --cor-table-header: #f4f4f4;
+  --cor-table-zebra: #fafafa;
+
+  /* Tema escuro */
+  --cor-escuro-bg: #121212;
+  --cor-escuro-card: #1e1e1e;
+  --cor-escuro-texto: #eee;
+  --cor-escuro-borda: #333;
+  --cor-escuro-input: #222;
+  --cor-escuro-input-borda: #444;
+  --cor-escuro-nav: #333;
+  --cor-escuro-nav-hover: #444;
+  --cor-tema-icone: #ffc107;
+
+  /* Outros */
+  --modal-bg: rgba(0, 0, 0, 0.5);
+}
+
 body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f8f8f8;
+  background-color: var(--cor-fundo);
   padding: 20px;
   max-width: 900px;
   margin: auto;
-  color: #333;
+  color: var(--cor-texto);
 }
 
 h1 {
@@ -21,7 +56,7 @@ nav {
 nav button {
   margin: 0 5px;
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: var(--cor-primaria);
   border: none;
   color: white;
   font-weight: bold;
@@ -31,7 +66,7 @@ nav button {
 }
 
 nav button:hover {
-  background-color: #45a049;
+  background-color: var(--cor-primaria-hover);
 }
 
 .tab-content {
@@ -44,12 +79,12 @@ nav button:hover {
 }
 
 .card {
-  background-color: white;
-  border: 1px solid #ddd;
+  background-color: var(--cor-card);
+  border: 1px solid var(--cor-borda);
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px var(--cor-sombra);
 }
 
 .input-group {
@@ -67,7 +102,7 @@ nav button:hover {
 }
 
 .input-group button {
-  background-color: #2196F3;
+  background-color: var(--cor-secundaria);
   border: none;
   padding: 10px 15px;
   color: white;
@@ -78,7 +113,7 @@ nav button:hover {
 }
 
 .input-group button:hover {
-  background-color: #1976D2;
+  background-color: var(--cor-secundaria-hover);
 }
 
 .card button {
@@ -91,68 +126,42 @@ nav button:hover {
   cursor: pointer;
 }
 
-.card button:nth-child(3) {
-  background-color: #FF9800;
-  color: white;
-}
-
-.card button:nth-child(3):hover {
-  background-color: #F57C00;
-}
-
-.card button:nth-child(4) {
-  background-color: #f44336;
-  color: white;
-}
-
-.card button:nth-child(4):hover {
-  background-color: #d32f2f;
-}
-
 /* Tema escuro */
 body.dark {
-  background-color: #121212;
-  color: #eee;
+  background-color: var(--cor-escuro-bg);
+  color: var(--cor-escuro-texto);
 }
 
 body.dark .card {
-  background-color: #1e1e1e;
-  border-color: #333;
+  background-color: var(--cor-escuro-card);
+  border-color: var(--cor-escuro-borda);
   box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
 }
 
 body.dark nav button {
-  background-color: #333;
+  background-color: var(--cor-escuro-nav);
   color: #fff;
 }
 
 body.dark nav button:hover {
-  background-color: #444;
+  background-color: var(--cor-escuro-nav-hover);
 }
 
 body.dark .input-group input {
-  background-color: #222;
-  color: #eee;
-  border-color: #444;
+  background-color: var(--cor-escuro-input);
+  color: var(--cor-escuro-texto);
+  border-color: var(--cor-escuro-input-borda);
 }
 
 body.dark .input-group button {
-  background-color: #1e88e5;
-}
-
-body.dark .card button:nth-child(3) {
-  background-color: #fb8c00;
-}
-
-body.dark .card button:nth-child(4) {
-  background-color: #e53935;
+  background-color: var(--cor-secundaria);
 }
 
 #botao-tema {
   position: fixed;
   top: 20px;
   right: 20px;
-  background-color: #4CAF50;
+  background-color: var(--cor-primaria);
   color: white;
   border: none;
   border-radius: 50%;
@@ -166,17 +175,17 @@ body.dark .card button:nth-child(4) {
 }
 
 #botao-tema:hover {
-  background-color: #388e3c;
+  background-color: var(--cor-tema-hover);
   transform: scale(1.05);
 }
 
 body.dark #botao-tema {
-  background-color: #222;
-  color: #ffc107;
+  background-color: var(--cor-escuro-input);
+  color: var(--cor-tema-icone);
 }
 
 body.dark #botao-tema:hover {
-  background-color: #333;
+  background-color: var(--cor-escuro-nav-hover);
 }
 
 #modal {
@@ -185,7 +194,7 @@ body.dark #botao-tema:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--modal-bg);
   display: none;
   justify-content: center;
   align-items: center;
@@ -200,43 +209,47 @@ body.dark #botao-tema:hover {
   margin-bottom: 10px;
 }
 
-.dropdown-content label {
-  display: block;
-  margin-bottom: 5px;
-}
-
 .dropdown {
   position: relative;
   display: inline-block;
-  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 .dropbtn {
-  background-color: #3498db;
+  background-color: var(--cor-dropbtn);
   color: white;
   padding: 8px 16px;
   font-size: 14px;
   border: none;
   cursor: pointer;
   border-radius: 4px;
+  text-align: left;
 }
 
 .dropdown-content {
   display: none;
   padding: 10px;
   margin-top: 5px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
+  border: 1px solid var(--cor-borda);
+  background-color: var(--cor-card);
   overflow-y: auto;
-  width: 100%;
   box-sizing: border-box;
+  z-index: 10;
+  max-height: 200px;
+  width: 100%;
+  position: absolute;
 }
-
 
 .dropdown.active .dropdown-content {
   display: block;
+  position: relative;
 }
 
+.dropdown-content label {
+  display: block;
+  margin-bottom: 5px;
+}
 
 .linhas-usadas table {
   width: 100%;
@@ -246,17 +259,17 @@ body.dark #botao-tema:hover {
 
 .linhas-usadas th,
 .linhas-usadas td {
-  border: 1px solid #ccc;
+  border: 1px solid var(--cor-borda);
   padding: 6px 8px;
   text-align: left;
   font-size: 0.9em;
 }
 
 .linhas-usadas th {
-  background-color: #f4f4f4;
+  background-color: var(--cor-table-header);
   font-weight: bold;
 }
 
 .linhas-usadas tr:nth-child(even) {
-  background-color: #fafafa;
+  background-color: var(--cor-table-zebra);
 }
