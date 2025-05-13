@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CrocheManagerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CrocheManagerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CrocheManagerApplication.class, args);
+    }
 
 }
