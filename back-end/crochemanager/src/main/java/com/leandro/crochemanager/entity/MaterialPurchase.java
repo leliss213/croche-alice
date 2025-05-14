@@ -5,21 +5,22 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @Entity
 @Table(name = "material_purchases")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class MaterialPurchase {
+public class MaterialPurchase extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    @Column(name = "quantity", nullable = false)
     private Double quantity;
+
+    @Column(name = "total_price", nullable = false)
     private Double totalPrice;
+
+    @Column(name = "purchase_date", nullable = false)
     private LocalDate purchaseDate;
 
     @ManyToOne

@@ -3,29 +3,31 @@ package com.leandro.crochemanager.entity;
 import com.leandro.crochemanager.entity.Enum.ProjectStatus;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @Entity
 @Table(name = "projects")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class Project {
+public class Project extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    @Column(name = "title", nullable = false)
     private String title;
+
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private ProjectStatus status;
 
+    @Column(name = "total_price")
     private Double totalPrice;
+
+    @Column(name = "hours_worked")
     private Double hoursWorked;
 
     @ManyToOne

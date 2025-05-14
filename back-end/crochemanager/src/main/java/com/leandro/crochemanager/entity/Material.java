@@ -7,27 +7,29 @@ import lombok.*;
 
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @Entity
 @Table(name = "materials")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class Material {
+public class Material extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "material_type")
     @Enumerated(EnumType.STRING)
     private MaterialType type;
 
+    @Column(name = "color")
     private String color;
+
+    @Column(name = "brand")
     private String brand;
 
+    @Column(name = "unit")
     @Enumerated(EnumType.STRING)
     private UnitType unit;
 
