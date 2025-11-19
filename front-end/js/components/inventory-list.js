@@ -91,13 +91,12 @@ export class InventoryList {
         }
     }
 
-    async addMaterial(color, qtd, valor) {
-        // Note: The original app used 'color' as name. Keeping logic similar but improved.
+    async addMaterial(color, brand, type) {
         const material = {
-            name: color, // Using color as name for now as per original logic
+            name: color,
             color: color,
-            brand: '',
-            type: 'LINHA',
+            brand: brand || '',
+            type: type || 'LINHA',
             unit: 'GRAMAS'
         };
         await api.createMaterial(material);

@@ -65,28 +65,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Add Material Form
-    document.getElementById('btnAddLinha').addEventListener('click', () => {
-        const cor = document.getElementById('linhaCor').value.trim();
-        if (!cor) return;
-
-        inventoryList.addMaterial(cor).then(() => {
-            document.getElementById('linhaCor').value = '';
-        });
-    });
-
-    // Dropdown Toggle
-    document.querySelector('.dropbtn').addEventListener('click', () => {
-        document.querySelector(".dropdown").classList.toggle("active");
-    });
-
     // Dashboard Summary Update
     const updateDashboard = (projects) => {
         const totalProjetos = projects.length;
-        const totalValor = projects.reduce((acc, p) => acc + (p.totalPrice || p.valor || 0), 0);
+        const projetosConcluidos = projects.filter(p => p.status === 'CONCLUIDO').length;
+        const projetosEmAndamento = projects.filter(p => p.status === 'EM_ANDAMENTO').length;
 
-        document.getElementById('resumoProjetos').innerText = `Projetos em andamento: ${totalProjetos}`;
-        document.getElementById('resumoValores').innerText = `Valor total: ${formatCurrency(totalValor)}`;
+        const totalValor = projects.reduce((acc, p) => acc + (p.totalPrice || p.valor || 0), 0);
+        const valorConcluido = projects
+            .filter(p => p.status === 'CONCLUIDO')
+            .reduce((acc, p) => acc + (p.totalPrice || p.valor || 0), 0);
+
+        document.getElementById('resumoProjetos').innerHTML = `
+            <strong>Total:</strong> ${totalProjetos}<br>
+            <span style="color: green">Concluídos:</span> ${projetosConcluidos}<br>
+            <span style="color: orange">Em Andamento:</span> ${projetosEmAndamento}
+        `;
+        document.getElementById('resumoValores').innerHTML = `
+            <strong>Valor Total Estimado:</strong> ${formatCurrency(totalValor)}<br>
+            <strong>Valor Realizado (Concluídos):</strong> ${formatCurrency(valorConcluido)}
+        `;
     };
 
     document.addEventListener('projectsUpdated', (e) => updateDashboard(e.detail));

@@ -37,54 +37,38 @@
     </div>
 
     <div id="listaProjetos">
-      <!-- Populated by JS -->
-    </div>
-  </div>
 
-  <!-- Tab: Estoque -->
-  <div id="estoque" class="tab-content">
-    <div class="input-group">
-      <input type="text" id="linhaCor" placeholder="Nome/Cor da linha">
-      <!-- Simplified input for quick add -->
-      <button id="btnAddLinha">Adicionar Linha</button>
-    </div>
-
-    <div id="listaEstoque">
-      <!-- Populated by JS -->
-    </div>
-  </div>
-
-  <!-- Tab: Perfil -->
-  <div id="perfil" class="tab-content">
-    <div class="card">
-      <h3>Resumo Gerencial</h3>
-      <p id="resumoProjetos">Carregando...</p>
-      <p id="resumoValores">Carregando...</p>
-    </div>
-  </div>
-
-  <!-- Modal -->
-  <div id="modal">
-    <div class="card">
-      <h3 id="modalTitulo">Editar</h3>
-
-      <label id="modalCampo1Label">Campo 1</label>
-      <input type="text" id="modalCampo1">
-
-      <label id="modalCampo2Label">Campo 2</label>
-      <input type="text" id="modalCampo2">
-
-      <label id="modalCampo3Label">Campo 3</label>
-      <input type="text" id="modalCampo3">
-
-      <div class="card-actions" style="margin-top: 20px;">
-        <button id="btnSalvarModal">Salvar</button>
-        <button id="btnCancelarModal" style="background: #ccc; color: #333;">Cancelar</button>
+      <!-- Tab: Perfil -->
+      <div id="perfil" class="tab-content">
+        <div class="card">
+          <h3>Resumo Gerencial</h3>
+          <p id="resumoProjetos">Carregando...</p>
+          <p id="resumoValores">Carregando...</p>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <script type="module" src="js/main.js"></script>
+      <!-- Modal -->
+      <div id="modal">
+        <div class="card">
+          <h3 id="modalTitulo">Editar</h3>
+
+          <label id="modalCampo1Label">Campo 1</label>
+          <input type="text" id="modalCampo1">
+
+          <label id="modalCampo2Label">Campo 2</label>
+          <input type="text" id="modalCampo2">
+
+          <label id="modalCampo3Label">Campo 3</label>
+          <input type="text" id="modalCampo3">
+
+          <div class="card-actions" style="margin-top: 20px;">
+            <button id="btnSalvarModal">Salvar</button>
+            <button id="btnCancelarModal" style="background: #ccc; color: #333;">Cancelar</button>
+          </div>
+        </div>
+      </div>
+
+      <script type="module" src="js/main.js"></script>
 
 </body>
 

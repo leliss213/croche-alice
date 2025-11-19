@@ -75,15 +75,15 @@ export class ProjectList {
             fields: {
                 field1: { label: 'Nome', value: proj.title || proj.name },
                 field2: { label: 'Valor', value: proj.totalPrice || proj.valor, type: 'number', step: '0.01' },
-                field3: null
+                field3: { label: 'Status', value: proj.status, type: 'select', options: ['EM_ANDAMENTO', 'CONCLUIDO', 'CANCELADO'] }
             },
             onSave: async (data) => {
                 await api.updateProject(proj.id, {
                     title: data.field1,
-                    name: data.field1, // Support both for compatibility
+                    name: data.field1,
                     totalPrice: parseFloat(data.field2),
                     valor: parseFloat(data.field2),
-                    status: proj.status
+                    status: data.field3
                 });
                 await this.refresh();
             }
