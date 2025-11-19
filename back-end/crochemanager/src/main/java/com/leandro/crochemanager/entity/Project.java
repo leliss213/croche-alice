@@ -35,5 +35,6 @@ public class Project extends BaseEntity{
     private User user;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<ProjectMaterial> projectMaterials;
 }

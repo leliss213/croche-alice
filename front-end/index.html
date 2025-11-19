@@ -1,81 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
-  <meta charset="windows-1252">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerenciador de Croche da Alice</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Gerenciador de Crochê da Alice</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-  <h1>Gerenciador de Croche</h1>
+  <h1>Gerenciador de Crochê</h1>
 
-  <button onclick="alternarTema()" id="botao-tema" style="float:right;">Tema Escuro</button>
+  <button id="botao-tema">&#9790;</button>
 
   <nav>
-    <button onclick="showTab('projetos')">Projetos</button>
-    <button onclick="showTab('estoque')">Estoque</button>
-    <button onclick="showTab('perfil')">Perfil</button>
+    <button data-tab="projetos" class="active">Projetos</button>
+    <button data-tab="estoque">Estoque</button>
+    <button data-tab="perfil">Perfil</button>
   </nav>
 
+  <!-- Tab: Projetos -->
   <div id="projetos" class="tab-content active">
-
     <div class="input-group">
       <input type="text" id="projetoNome" placeholder="Nome do projeto">
       <input type="number" step="1.00" id="projetoValor" placeholder="Valor (R$)">
-      <button onclick="adicionarProjeto()">Adicionar</button>
+
+      <div class="dropdown">
+        <button class="dropbtn">Selecionar Linhas &#9662;</button>
+        <div id="dropdownCheckboxes" class="dropdown-content">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <button id="btnAddProjeto">Adicionar Projeto</button>
     </div>
 
-    <div class="dropdown">
-      <button onclick="toggleDropdown()" class="dropbtn">Selecionar Linhas</button>
-      <div id="dropdownCheckboxes" class="dropdown-content"></div>
+    <div id="listaProjetos">
+      <!-- Populated by JS -->
     </div>
-    
-    <div id="listaProjetos"></div>
-
   </div>
 
+  <!-- Tab: Estoque -->
   <div id="estoque" class="tab-content">
-
     <div class="input-group">
-      <input type="text" id="linhaCor" placeholder="Cor da linha">
-      <input type="number" id="linhaQtd" placeholder="Quantidade">
-      <input type="number" step="1.00" id="linhaValor" placeholder="Valor (R$)">
-      <button onclick="adicionarLinha()">Adicionar</button>
+      <input type="text" id="linhaCor" placeholder="Nome/Cor da linha">
+      <!-- Simplified input for quick add -->
+      <button id="btnAddLinha">Adicionar Linha</button>
     </div>
 
-    <div id="listaEstoque"></div>
-
+    <div id="listaEstoque">
+      <!-- Populated by JS -->
+    </div>
   </div>
 
+  <!-- Tab: Perfil -->
   <div id="perfil" class="tab-content">
-
     <div class="card">
-      <strong>Resumo</strong>
-      <p id="resumoProjetos"></p>
-      <p id="resumoTipos"></p>
-      <p id="resumoTotal"></p>
-      <p id="resumoValores"></p>
+      <h3>Resumo Gerencial</h3>
+      <p id="resumoProjetos">Carregando...</p>
+      <p id="resumoValores">Carregando...</p>
     </div>
-
   </div>
 
+  <!-- Modal -->
   <div id="modal">
-
     <div class="card">
-      <h3 id="modalTitulo"></h3>
-      <input type="text" id="modalCampo1">
-      <input type="number" id="modalCampo2">
-      <input type="number" step="0.01" id="modalCampo3">
-      <button onclick="salvarEdicao()">Salvar</button>
-      <button onclick="fecharModal()">Cancelar</button>
-    </div>
+      <h3 id="modalTitulo">Editar</h3>
 
+      <label id="modalCampo1Label">Campo 1</label>
+      <input type="text" id="modalCampo1">
+
+      <label id="modalCampo2Label">Campo 2</label>
+      <input type="text" id="modalCampo2">
+
+      <label id="modalCampo3Label">Campo 3</label>
+      <input type="text" id="modalCampo3">
+
+      <div class="card-actions" style="margin-top: 20px;">
+        <button id="btnSalvarModal">Salvar</button>
+        <button id="btnCancelarModal" style="background: #ccc; color: #333;">Cancelar</button>
+      </div>
+    </div>
   </div>
 
-  <script src="app.js"></script>
+  <script type="module" src="js/main.js"></script>
 
 </body>
 

@@ -1,0 +1,345 @@
+:root {
+    /* Cores originais */
+    --cor-fundo: #f5f1f1;
+    --cor-texto: #333;
+    --cor-card: #ffffff;
+    --cor-borda: #ddd;
+    --cor-sombra: rgba(0, 0, 0, 0.05);
+
+    /* Cores dos botões */
+    --cor-primaria: #4CAF50;
+    --cor-primaria-hover: #45a049;
+    --cor-secundaria: #2196F3;
+    --cor-secundaria-hover: #1976D2;
+    --cor-dropbtn: #3498db;
+    --cor-tema-hover: #388e3c;
+
+    /* Cores da tabela */
+    --cor-table-header: #f4f4f4;
+    --cor-table-zebra: #fafafa;
+
+    /* Tema escuro */
+    --cor-escuro-bg: #121212;
+    --cor-escuro-card: #1e1e1e;
+    --cor-escuro-texto: #eee;
+    --cor-escuro-borda: #333;
+    --cor-escuro-input: #222;
+    --cor-escuro-input-borda: #444;
+    --cor-escuro-nav: #333;
+    --cor-escuro-nav-hover: #444;
+    --cor-tema-icone: #ffc107;
+
+    /* Outros */
+    --modal-bg: rgba(0, 0, 0, 0.5);
+    --radius: 5px;
+    --transition: 0.3s ease;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    transition: background-color var(--transition), color var(--transition);
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+body.dark {
+    background-color: var(--cor-escuro-bg);
+    color: var(--cor-escuro-texto);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+nav button {
+    padding: 10px 20px;
+    border: none;
+    background: var(--cor-primaria);
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+nav button:hover,
+nav button.active {
+    background: var(--cor-primaria-hover);
+}
+
+body.dark nav button {
+    background-color: var(--cor-escuro-nav);
+    color: #fff;
+}
+
+body.dark nav button:hover,
+body.dark nav button.active {
+    background-color: var(--cor-escuro-nav-hover);
+}
+
+/* Content Tabs */
+.tab-content {
+    display: none;
+    animation: fadeIn 0.5s;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Forms & Inputs */
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 1;
+}
+
+body.dark input {
+    background-color: var(--cor-escuro-input);
+    color: var(--cor-escuro-texto);
+    border-color: var(--cor-escuro-input-borda);
+}
+
+button {
+    padding: 10px 15px;
+    background: var(--cor-secundaria);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background var(--transition);
+}
+
+button:hover {
+    background: var(--cor-secundaria-hover);
+}
+
+/* Cards */
+.card {
+    background: var(--cor-card);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: var(--radius);
+    box-shadow: 0 2px 4px var(--cor-sombra);
+    border: 1px solid var(--cor-borda);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+body.dark .card {
+    background-color: var(--cor-escuro-card);
+    border-color: var(--cor-escuro-borda);
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--cor-borda);
+    padding-bottom: 10px;
+}
+
+body.dark .card-header {
+    border-bottom-color: var(--cor-escuro-borda);
+}
+
+.card-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.btn-edit {
+    background: #2196f3;
+}
+
+.btn-delete {
+    background: #f44336;
+}
+
+/* Status Badge */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    background: #eee;
+    color: #333;
+}
+
+.status-badge.EM_ANDAMENTO {
+    background: #ff9800;
+    color: white;
+}
+
+.status-badge.CONCLUIDO {
+    background: #4caf50;
+    color: white;
+}
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.dropbtn {
+    width: 100%;
+    text-align: left;
+    background: var(--cor-dropbtn);
+    color: white;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--cor-card);
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: var(--radius);
+    padding: 10px;
+    border: 1px solid var(--cor-borda);
+}
+
+body.dark .dropdown-content {
+    background-color: var(--cor-escuro-card);
+    border-color: var(--cor-escuro-borda);
+}
+
+.dropdown.active .dropdown-content {
+    display: block;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+body.dark .dropdown-item {
+    border-bottom-color: var(--cor-escuro-borda);
+}
+
+.color-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.color-dot-small {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+/* Modal */
+#modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--modal-bg);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#modal .card {
+    width: 90%;
+    max-width: 400px;
+}
+
+/* Theme Button */
+#botao-tema {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--cor-primaria);
+    font-size: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+#botao-tema:hover {
+    background-color: var(--cor-tema-hover);
+    transform: scale(1.05);
+}
+
+body.dark #botao-tema {
+    background-color: var(--cor-escuro-input);
+    color: var(--cor-tema-icone);
+}
+
+body.dark #botao-tema:hover {
+    background-color: var(--cor-escuro-nav-hover);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .input-group {
+        flex-direction: column;
+    }
+
+    nav {
+        flex-wrap: wrap;
+    }
+}
