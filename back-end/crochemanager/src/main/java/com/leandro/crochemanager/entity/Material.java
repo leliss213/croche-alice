@@ -34,9 +34,11 @@ public class Material extends BaseEntity {
     private UnitType unit;
 
     @OneToMany(mappedBy = "material", cascade = CascadeType.ALL)
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties("material")
     private List<MaterialPurchase> purchases;
 
     @OneToMany(mappedBy = "material", cascade = CascadeType.ALL)
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties("material")
     private List<ProjectMaterial> projectMaterials;
 
 }

@@ -75,7 +75,7 @@ export class ProjectList {
             fields: {
                 field1: { label: 'Nome', value: proj.title || proj.name },
                 field2: { label: 'Valor', value: proj.totalPrice || proj.valor, type: 'number', step: '0.01' },
-                field3: { label: 'Status', value: proj.status, type: 'select', options: ['EM_ANDAMENTO', 'CONCLUIDO', 'CANCELADO'] }
+                field3: { label: 'Status', value: proj.status, type: 'select', options: ['IN_PROGRESS', 'COMPLETED', 'NOT_STARTED', 'CANCELLED'] }
             },
             onSave: async (data) => {
                 await api.updateProject(proj.id, {
@@ -103,7 +103,7 @@ export class ProjectList {
             name: name,
             totalPrice: value,
             valor: value,
-            status: 'EM_ANDAMENTO',
+            status: 'IN_PROGRESS',
             projectMaterials: selectedMaterials.map(m => ({
                 material: { id: m.id },
                 quantity: m.quantity

@@ -207,12 +207,12 @@ body.dark .card-header {
     color: #333;
 }
 
-.status-badge.EM_ANDAMENTO {
+.status-badge.IN_PROGRESS {
     background: #ff9800;
     color: white;
 }
 
-.status-badge.CONCLUIDO {
+.status-badge.COMPLETED {
     background: #4caf50;
     color: white;
 }

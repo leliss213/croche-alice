@@ -4,7 +4,8 @@ export async function fetchJson(endpoint, options = {}) {
     try {
         const response = await fetch(`${API_URL}${endpoint}`, options);
         if (!response.ok) {
-            throw new Error(`Network response was not ok: ${response.statusText}`);
+            const errorText = await response.text();
+            throw new Error(`Network response was not ok: ${response.status} ${response.statusText} - ${errorText}`);
         }
         // For DELETE or 204 No Content, return null
         if (response.status === 204) return null;
@@ -43,5 +44,11 @@ export const api = {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(material)
     }),
-    deleteMaterial: (id) => fetchJson(`/materials/${id}`, { method: 'DELETE' })
+    deleteMaterial: (id) => fetchJson(`/materials/${id}`, { method: 'DELETE' }),
+
+    createPurchase: (purchase) => fetchJson('/purchases', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(purchase)
+    })
 };

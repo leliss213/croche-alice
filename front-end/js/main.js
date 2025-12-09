@@ -65,15 +65,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Dropdown Toggle
+    document.querySelector('.dropbtn').addEventListener('click', () => {
+        document.querySelector(".dropdown").classList.toggle("active");
+    });
+
+    // Add Material Form
+    document.getElementById('btnAddLinha').addEventListener('click', () => {
+        const cor = document.getElementById('linhaCor').value.trim();
+        const marca = document.getElementById('linhaMarca').value.trim();
+        const tipo = document.getElementById('linhaTipo').value;
+
+        if (!cor) {
+            alert('Preencha a cor/nome da linha.');
+            return;
+        }
+
+        inventoryList.addMaterial(cor, marca, tipo).then(() => {
+            document.getElementById('linhaCor').value = '';
+            document.getElementById('linhaMarca').value = '';
+        }).catch(err => {
+            console.error(err);
+            alert('Erro ao adicionar material: ' + err.message);
+        });
+    });
+
     // Dashboard Summary Update
     const updateDashboard = (projects) => {
         const totalProjetos = projects.length;
-        const projetosConcluidos = projects.filter(p => p.status === 'CONCLUIDO').length;
-        const projetosEmAndamento = projects.filter(p => p.status === 'EM_ANDAMENTO').length;
+        const projetosConcluidos = projects.filter(p => p.status === 'COMPLETED').length;
+        const projetosEmAndamento = projects.filter(p => p.status === 'IN_PROGRESS').length;
 
         const totalValor = projects.reduce((acc, p) => acc + (p.totalPrice || p.valor || 0), 0);
         const valorConcluido = projects
-            .filter(p => p.status === 'CONCLUIDO')
+            .filter(p => p.status === 'COMPLETED')
             .reduce((acc, p) => acc + (p.totalPrice || p.valor || 0), 0);
 
         document.getElementById('resumoProjetos').innerHTML = `
